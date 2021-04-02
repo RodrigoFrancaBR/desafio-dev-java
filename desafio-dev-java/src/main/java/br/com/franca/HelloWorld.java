@@ -1,4 +1,4 @@
-package br.com.franca.desafiodevjava;
+package br.com.franca;
 
 public class HelloWorld {
 
