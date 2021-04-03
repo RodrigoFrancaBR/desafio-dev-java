@@ -12,8 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-@Table(name = "TB_USER", 
-uniqueConstraints = { @UniqueConstraint(columnNames = { "cpf" }, name = "UK_TB_USER_CPF") })
+@Table(name = "TB_USER",
+	uniqueConstraints = { @UniqueConstraint(columnNames = { "cpf" }, name = "UK_TB_USER_CPF") })
 
 @Entity
 public class User {
@@ -24,7 +24,7 @@ public class User {
 
 	@Column(nullable = false, length = 50)
 	private String name;
-
+	
 	@Enumerated(EnumType.STRING)
 	@Column(length = 20)
 	private Genre genre;
