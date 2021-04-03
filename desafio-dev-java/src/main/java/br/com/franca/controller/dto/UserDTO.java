@@ -4,17 +4,18 @@ import java.time.LocalDate;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 
 import org.hibernate.validator.constraints.Length;
-import org.springframework.lang.NonNull;
 
 import br.com.franca.domain.Genre;
 import br.com.franca.domain.User;
 import br.com.franca.domain.User.UserBuilder;
 
 public class UserDTO {
-	@NonNull
+	
+	@NotNull
 	@NotEmpty
 	@Length( max = 50)	
 	private String name;
@@ -25,7 +26,7 @@ public class UserDTO {
 	@Email
 	private String email;
 
-	@NonNull	
+	@NotNull
 	@PastOrPresent
 	private LocalDate birthDate;
 
@@ -35,7 +36,7 @@ public class UserDTO {
 	@Length(max = 20)
 	private String nationality;
 	
-	@NonNull
+	@NotNull
 	@NotEmpty
 	@Length(max = 11)
 	private String cpf;
