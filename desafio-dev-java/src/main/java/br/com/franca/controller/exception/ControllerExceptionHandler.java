@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import br.com.franca.controller.exception.dto.FormErrorDTO;
 import br.com.franca.controller.exception.dto.StandartErrorDTO;
+import br.com.franca.controller.exception.dto.StandartErrorDTO.StandartErrorBuilder;
 
 @RestControllerAdvice
 public class ControllerExceptionHandler {
@@ -29,7 +30,8 @@ public class ControllerExceptionHandler {
 
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public List<StandartErrorDTO> handlerConstraintViolation(MethodArgumentNotValidException e, HttpServletRequest request) {
+	public List<StandartErrorDTO> handlerConstraintViolation(MethodArgumentNotValidException e,
+			HttpServletRequest request) {
 
 		List<StandartErrorDTO> standardErrorList = new ArrayList<>();
 
@@ -37,23 +39,42 @@ public class ControllerExceptionHandler {
 
 		fieldErrorList.forEach((fildError) -> {
 
-			String message = messageSource
-					.getMessage(fildError, LocaleContextHolder.getLocale());
-			
-			FormErrorDTO formErrorDTO = new FormErrorDTO.FormErrorBuild()
-			.field(fildError.getField())
-			.message(message)
-			.error("Restrição de dados")
-			.path(request.getRequestURI())
-			.status(HttpStatus.BAD_REQUEST.value())
-			.timestamp(System.currentTimeMillis())
-			.buildFormErrorDTO();
-			
-			standardErrorList.add(formErrorDTO);					
+			String message = messageSource.getMessage(fildError, LocaleContextHolder.getLocale());
+
+			StandartErrorBuilder standartErrorBuilder = new StandartErrorDTO.StandartErrorBuilder();
+
+			StandartErrorDTO standartErrorDTO = standartErrorBuilder.message(message)
+					.error("Restrição de dados")
+					.path(request.getRequestURI())
+					.status(HttpStatus.BAD_REQUEST.value())
+					.timestamp(System.currentTimeMillis())
+					.buildStandartErrorDTO();
+
+			FormErrorDTO formErrorDTO = new FormErrorDTO.FormErrorBuilder()
+					.field(fildError.getField())
+					.buildFormErrorDTO(standartErrorDTO);
+
+			standardErrorList.add(formErrorDTO);
 
 		});
-		
+
 		return standardErrorList;
 
 	}
+
+	@ExceptionHandler(IllegalArgumentException.class)
+	@ResponseStatus(code = HttpStatus.NOT_FOUND)
+	public StandartErrorDTO handlerIllegalArgument(IllegalArgumentException e, HttpServletRequest request) {
+		
+		StandartErrorDTO standartErrorDTO = new StandartErrorDTO.StandartErrorBuilder()
+		.message(e.getMessage())
+		.error("Argumento Inválido")
+		.path(request.getRequestURI())
+		.status(HttpStatus.BAD_REQUEST.value())
+		.timestamp(System.currentTimeMillis())
+		.buildStandartErrorDTO();
+		
+		return standartErrorDTO;
+	}
+
 }

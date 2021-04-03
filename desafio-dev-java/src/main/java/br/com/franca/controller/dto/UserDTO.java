@@ -70,7 +70,9 @@ public class UserDTO {
 	}
 
 	public User toUser() {
+		
 		UserBuilder userBuilder = new User.UserBuilder(this.name, this.birthDate, this.cpf);
+		
 		return userBuilder.genre(this.genre).email(this.email).naturalness(this.naturalness)
 				.nationality(this.nationality).buildUser();
 	}
@@ -79,6 +81,10 @@ public class UserDTO {
 	public String toString() {
 		return "UserRequestDTO [name=" + name + ", genre=" + genre + ", email=" + email + ", birthDate=" + birthDate
 				+ ", naturalness=" + naturalness + ", nationality=" + nationality + ", cpf=" + cpf + "]";
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

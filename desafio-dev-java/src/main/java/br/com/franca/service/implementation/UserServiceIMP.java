@@ -18,6 +18,19 @@ public class UserServiceIMP implements UserService {
 
 	@Override
 	public Long save(UserDTO dto) {
+				
+		if (dto.getName()==null) {
+			throw new IllegalArgumentException("Nome não deve ser vazio");
+		}
+		
+		if (dto.getBirthDate()==null) {
+			throw new IllegalArgumentException("Data de Nascimento não deve ser vazio");
+		}
+		
+		if (dto.getCpf()==null) {
+			throw new IllegalArgumentException("CPF não deve ser vazio");
+		}
+		
 		User user = dto.toUser();
 		return repository.save(user).getId();
 	}
