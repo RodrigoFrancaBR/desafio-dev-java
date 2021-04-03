@@ -2,8 +2,8 @@ package br.com.franca.service.implementation;
 
 import org.springframework.stereotype.Service;
 
+import br.com.franca.controller.dto.UserDTO;
 import br.com.franca.domain.User;
-import br.com.franca.dto.request.UserRequestDTO;
 import br.com.franca.repository.UserRepository;
 import br.com.franca.service.interfaces.UserService;
 
@@ -17,17 +17,8 @@ public class UserServiceIMP implements UserService {
 	}
 
 	@Override
-	public Long save(UserRequestDTO dto) {
-		
-		User user = new User.UserBuilder(dto.getName(),
-				dto.getBirthDate(),
-				dto.getCpf())				
-		.genre(dto.getGenre())
-		.email(dto.getEmail())
-		.naturalness(dto.getNaturalness())
-		.nationality(dto.getNationality())
-		.buildUser();
-		
+	public Long save(UserDTO dto) {
+		User user = dto.toUser();
 		return repository.save(user).getId();
 	}
 

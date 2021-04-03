@@ -54,10 +54,36 @@ public class User {
 		this.cpf = cpf;
 	}
 	
-
 	public Long getId() {
 		return id;
 	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+
+
 
 	public static class UserBuilder {
 		private String name;
@@ -95,28 +121,12 @@ public class User {
 			this.nationality = nationality;
 			return this;
 		}
-/*		
-		public UserBuilder name(String name) {
-			this.name = name;
-			return this;
-		}
-
-		public UserBuilder birthDate(LocalDate birthDate) {
-			this.birthDate = birthDate;
-			return this;
-		}
-
-
-		public UserBuilder cpf(String cpf) {
-			this.cpf = cpf;
-			return this;
-		}
-*/
+				
 		public User buildUser() {
 			return new User(this.name, this.genre, this.email, this.birthDate,
 					this.naturalness, this.nationality,this.cpf);
 		}
-
+		
 	}
 
 

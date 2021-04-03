@@ -1,11 +1,13 @@
 package br.com.franca.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.franca.dto.request.UserRequestDTO;
+import br.com.franca.controller.dto.UserDTO;
 import br.com.franca.service.interfaces.UserService;
 
 @RestController
@@ -19,7 +21,7 @@ public class UserController {
 	}
 
 	@PostMapping
-	public void save(@RequestBody UserRequestDTO dto) {		
+	public void save(@RequestBody @Valid UserDTO dto) {		
 		Long id = service.save(dto);
 		System.out.println(id);
 	}

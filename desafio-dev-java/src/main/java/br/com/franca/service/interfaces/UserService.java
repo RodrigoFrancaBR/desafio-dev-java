@@ -1,9 +1,9 @@
 package br.com.franca.service.interfaces;
 
-import br.com.franca.dto.request.UserRequestDTO;
+import br.com.franca.controller.dto.UserDTO;
 
 public interface UserService {
 	
-	public Long save(UserRequestDTO dto);
+	public Long save(UserDTO dto);
 
 }
