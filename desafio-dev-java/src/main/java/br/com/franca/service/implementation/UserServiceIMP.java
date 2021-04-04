@@ -1,6 +1,8 @@
 package br.com.franca.service.implementation;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,22 @@ public class UserServiceIMP implements UserService {
 
 	public UserServiceIMP(UserRepository repository) {
 		this.repository = repository;
+	}
+	
+	@Override
+	public List<UserResponseDTO> findAll() {
+		return repository.findAll().stream()
+		.map(user -> new UserResponseDTO.UserResponseDTOBuilder()
+				.id(user.getId())
+				.name(user.getName())
+				.genre(user.getGenre())
+				.email(user.getEmail())
+				.birthDate(user.getBirthDate())
+				.naturalness(user.getNaturalness())
+				.nationality(user.getNationality())
+				.cpf(user.getCpf())
+				.buildUserResponseDTO())
+				.collect(Collectors.toList());
 	}
 
 	@Override
@@ -92,6 +110,6 @@ public class UserServiceIMP implements UserService {
 		if (!CpfUtil.isValid(cpf)) {
 			throw new IllegalArgumentException("CPF deve conter 11 dígitos entre [0 e 9]");
 		}		
-	}	
+	}
 
 }

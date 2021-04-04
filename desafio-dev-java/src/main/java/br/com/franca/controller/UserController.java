@@ -1,6 +1,7 @@
 package br.com.franca.controller;
 
 import java.net.URI;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -29,6 +30,12 @@ public class UserController {
 		this.service = service;
 	}
 	
+	@GetMapping
+	public ResponseEntity<List<UserResponseDTO>> findAll() {
+		List<UserResponseDTO> listDTO = service.findAll();
+		return ResponseEntity.ok(listDTO);
+	}
+	
 	@GetMapping("/{id}")
 	public ResponseEntity<UserResponseDTO> findBy(@PathVariable Long id) {
 		UserResponseDTO dto = service.findById(id);
@@ -54,7 +61,6 @@ public class UserController {
 		return ResponseEntity.noContent().build();
 	}
 	
-
 	private URI obterUri(Long id) {
 		return ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
 	}
