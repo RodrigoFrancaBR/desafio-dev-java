@@ -1,0 +1,111 @@
+{
+	"variables": [],
+	"info": {
+		"name": "desafio-dev-java",
+		"_postman_id": "69402aa6-2ced-e5ce-76e0-8accf36f495d",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Cadastrar usuário",
+			"request": {
+				"url": "http://localhost:8080/api/users",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"Rodrigo França\",\n\t\"genre\":\"MASCULINO\",\n\t\"email\":\"rfrancacosta@gmail\",\n\t\"birthDate\":\"1985-09-04\",\n\t\"naturalness\": \"Rio de Janeiro\",\n\t\"nationality\":\"Brasileira\",\n\t\"cpf\":\"72845169761\"\t\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Listar apenas um cadastro",
+			"request": {
+				"url": "http://localhost:8080/api/users/5",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"Rodrigo França\",\n\t\"genre\":\"MASCULINO\",\n\t\"email\":\"rfrancacosta@gmail\",\n\t\"birthDate\":\"1985-09-04\",\n\t\"naturalness\": \"Rio de Janeiro\",\n\t\"nationality\":\"Brasileira\",\n\t\"cpf\":\"12345678912\"\t\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Editar usuário",
+			"request": {
+				"url": "http://localhost:8080/api/users/3",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"Rodrigo França\",\n\t\"genre\":\"MASCULINO\",\n\t\"email\":\"rfrancacosta@gmail\",\n\t\"birthDate\":\"1985-09-04\",\n\t\"naturalness\": \"Rio de Janeiro\",\n\t\"nationality\":\"Brasileira\",\n\t\"cpf\":\"12345678912\"\t\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Deletar usuário",
+			"request": {
+				"url": "http://localhost:8080/api/users/5",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Listar todos os cadastrados",
+			"request": {
+				"url": "http://localhost:8080/api/users",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"Rodrigo França\",\n\t\"genre\":\"MASCULINO\",\n\t\"email\":\"rfrancacosta@gmail\",\n\t\"birthDate\":\"1985-09-04\",\n\t\"naturalness\": \"Rio de Janeiro\",\n\t\"nationality\":\"Brasileira\",\n\t\"cpf\":\"12345678912\"\t\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

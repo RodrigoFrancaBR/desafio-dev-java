@@ -5,14 +5,14 @@ import java.time.LocalDate;
 import javax.validation.constraints.NotNull;
 
 import br.com.franca.domain.Genre;
-import br.com.franca.service.dto.UserDTO;
+import br.com.franca.service.dto.in.UserFrontDTO;
 
-public class UserResponseDTO extends UserDTO {
+public class UserViewDTO extends UserFrontDTO {
 
 	@NotNull
 	private Long id;	
 
-	private UserResponseDTO(Long id, String name, Genre genre, String email,
+	private UserViewDTO(Long id, String name, Genre genre, String email,
 			LocalDate birthDate, String naturalness, String nationality, String cpf) {
 				this.id = id;
 				this.name = name;
@@ -28,7 +28,7 @@ public class UserResponseDTO extends UserDTO {
 		return id;
 	}
 
-	public static class UserResponseDTOBuilder {
+	public static class UserViewDTOBuilder {
 		private Long id;
 		private String name;
 		private Genre genre;
@@ -38,48 +38,48 @@ public class UserResponseDTO extends UserDTO {
 		private String nationality;
 		private String cpf;
 
-		public UserResponseDTOBuilder id(Long id) {
+		public UserViewDTOBuilder id(Long id) {
 			this.id = id;
 			return this;
 		}
 
-		public UserResponseDTOBuilder name(String name) {
+		public UserViewDTOBuilder name(String name) {
 			this.name = name;
 			return this;
 		}
 
-		public UserResponseDTOBuilder genre(Genre genre) {
+		public UserViewDTOBuilder genre(Genre genre) {
 			this.genre = genre;
 			return this;
 		}
 
-		public UserResponseDTOBuilder email(String email) {
+		public UserViewDTOBuilder email(String email) {
 			this.email = email;
 			return this;
 		}
 
-		public UserResponseDTOBuilder birthDate(LocalDate birthDate) {
+		public UserViewDTOBuilder birthDate(LocalDate birthDate) {
 			this.birthDate = birthDate;
 			return this;
 		}
 
-		public UserResponseDTOBuilder naturalness(String naturalness) {
+		public UserViewDTOBuilder naturalness(String naturalness) {
 			this.naturalness = naturalness;
 			return this;
 		}
 
-		public UserResponseDTOBuilder nationality(String nationality) {
+		public UserViewDTOBuilder nationality(String nationality) {
 			this.nationality = nationality;
 			return this;
 		}
 
-		public UserResponseDTOBuilder cpf(String cpf) {
+		public UserViewDTOBuilder cpf(String cpf) {
 			this.cpf = cpf;
 			return this;
 		}
 
-		public UserResponseDTO buildUserResponseDTO() {
-			return new UserResponseDTO(id, name, genre, email, birthDate, naturalness, nationality, cpf);
+		public UserViewDTO buildUserViewDTO() {
+			return new UserViewDTO(id, name, genre, email, birthDate, naturalness, nationality, cpf);
 		}
 
 	}

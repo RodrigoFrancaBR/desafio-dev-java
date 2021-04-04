@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.franca.service.dto.UserDTO;
-import br.com.franca.service.dto.out.UserResponseDTO;
+import br.com.franca.service.dto.in.UserFrontDTO;
+import br.com.franca.service.dto.out.UserViewDTO;
 import br.com.franca.service.interfaces.UserService;
 
 @RestController
@@ -31,26 +31,26 @@ public class UserController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<UserResponseDTO>> findAll() {
-		List<UserResponseDTO> listDTO = service.findAll();
+	public ResponseEntity<List<UserViewDTO>> findAll() {
+		List<UserViewDTO> listDTO = service.findAll();
 		return ResponseEntity.ok(listDTO);
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<UserResponseDTO> findBy(@PathVariable Long id) {
-		UserResponseDTO dto = service.findById(id);
+	public ResponseEntity<UserViewDTO> findBy(@PathVariable Long id) {
+		UserViewDTO dto = service.findById(id);
 		return ResponseEntity.ok(dto);
 	}
 
 	@PostMapping
-	public ResponseEntity<?> save(@RequestBody @Valid UserDTO dto) {		
+	public ResponseEntity<?> save(@RequestBody @Valid UserFrontDTO dto) {		
 		Long id = service.save(dto);
 		URI uri = obterUri(id);
 		return ResponseEntity.created(uri).build();
 	}
 	
 	@PutMapping("/{id}")	
-	public ResponseEntity<?> update(@PathVariable Long id, @RequestBody @Valid UserDTO dto) {
+	public ResponseEntity<?> update(@PathVariable Long id, @RequestBody @Valid UserFrontDTO dto) {
 		service.update(id, dto);
 		return ResponseEntity.noContent().build();
 	}

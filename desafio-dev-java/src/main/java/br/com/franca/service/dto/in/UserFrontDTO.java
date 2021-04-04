@@ -1,4 +1,4 @@
-package br.com.franca.service.dto;
+package br.com.franca.service.dto.in;
 
 import java.time.LocalDate;
 
@@ -13,7 +13,7 @@ import br.com.franca.domain.Genre;
 import br.com.franca.domain.User;
 import br.com.franca.domain.User.UserBuilder;
 
-public class UserDTO {
+public class UserFrontDTO {
 			
 	@NotNull
 	@NotEmpty
