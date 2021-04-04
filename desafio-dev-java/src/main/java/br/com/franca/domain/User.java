@@ -41,7 +41,10 @@ public class User {
 	private String nationality;
 
 	@Column(nullable = false, length = 11)
-	private String cpf;	
+	private String cpf;
+	
+	public User() {	
+	}
 
 	private User(String name, Genre genre, String email, LocalDate birthDate,
 			String naturalness, String nationality,String cpf) {
@@ -56,8 +59,12 @@ public class User {
 	
 	public Long getId() {
 		return id;
-	}
+	}		
 	
+	public String getCpf() {
+		return cpf;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -82,8 +89,6 @@ public class User {
 			return false;
 		return true;
 	}
-
-
 
 	public static class UserBuilder {
 		private String name;

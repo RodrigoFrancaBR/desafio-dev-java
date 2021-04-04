@@ -1,4 +1,4 @@
-package br.com.franca.controller.dto;
+package br.com.franca.service.dto;
 
 import java.time.LocalDate;
 
@@ -14,7 +14,7 @@ import br.com.franca.domain.User;
 import br.com.franca.domain.User.UserBuilder;
 
 public class UserDTO {
-	
+			
 	@NotNull
 	@NotEmpty
 	@Length( max = 50)	
@@ -38,7 +38,7 @@ public class UserDTO {
 	
 	@NotNull
 	@NotEmpty
-	@Length(max = 11)
+	@Length(min =11, max = 11)
 	private String cpf;
 
 	public String getName() {
