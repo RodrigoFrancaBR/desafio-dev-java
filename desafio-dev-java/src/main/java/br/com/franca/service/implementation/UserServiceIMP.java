@@ -1,5 +1,7 @@
 package br.com.franca.service.implementation;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import br.com.franca.domain.User;
@@ -23,7 +25,7 @@ public class UserServiceIMP implements UserService {
 	@Override
 	public UserResponseDTO findById(Long id) {
 		
-		UserResponseDTO userResponseDTO = repository.findById(id)
+		return repository.findById(id)
 				.map(user -> new UserResponseDTO.UserResponseDTOBuilder()
 						.id(user.getId())
 						.name(user.getName())
@@ -34,21 +36,17 @@ public class UserServiceIMP implements UserService {
 						.nationality(user.getNationality())
 						.cpf(user.getCpf())
 						.buildUserResponseDTO())
-				.orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
-		
-		return userResponseDTO;
+				.orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));		
 	}
 
 	@Override
 	public Long save(UserDTO dto) {
 		
-		if (!CpfUtil.isValid(dto.getCpf())) {
-			throw new IllegalArgumentException("CPF deve conter 11 dígitos entre [0 e 9]");
-		}
-				
-		repository.findByCpf(dto.getCpf()).ifPresent(user ->{
+		validateCpf(dto.getCpf());		
+		
+		repository.findByCpf(dto.getCpf()).ifPresent(user -> {
 			throw new ResourceAlreadyExistsException("Já existe um Usuário com o cpf informado");
-		});
+		});				
 		
 		User user = dto.toUser();
 
@@ -58,10 +56,14 @@ public class UserServiceIMP implements UserService {
 	@Override
 	public void update(Long id, UserDTO dto) {
 		
-		if (!CpfUtil.isValid(dto.getCpf())) {
-			throw new IllegalArgumentException("CPF deve conter 11 dígitos entre [0 e 9]");
-		}
+		validateCpf(dto.getCpf());
 		
+		Optional<User> userFindOptional = repository.findByCpf(dto.getCpf());
+		
+		if(userFindOptional.isPresent() && !id.equals(userFindOptional.get().getId())) {
+			throw new ResourceAlreadyExistsException("Já existe um Usuário com o cpf informado");
+		}		
+
 		User userFind = repository.findById(id)
 		.map(u->{
 			User user = dto.toUser();
@@ -72,5 +74,24 @@ public class UserServiceIMP implements UserService {
 		repository.save(userFind);
 		
 	}
+
+	@Override
+	public void delete(Long id) {	
+		
+		Optional<User> optional = repository.findById(id);
+		
+		if (!optional.isPresent()) {
+			throw new ResourceNotFoundException("Usuário não encontrado");
+		}
+		
+		repository.delete(optional.get());
+		
+	}
+	
+	private void validateCpf(String cpf) {
+		if (!CpfUtil.isValid(cpf)) {
+			throw new IllegalArgumentException("CPF deve conter 11 dígitos entre [0 e 9]");
+		}		
+	}	
 
 }

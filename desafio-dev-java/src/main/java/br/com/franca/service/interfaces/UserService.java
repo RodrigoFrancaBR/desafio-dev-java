@@ -10,5 +10,7 @@ public interface UserService {
 	public UserResponseDTO findById(Long id);
 
 	public void update(Long id, UserDTO dto);
+
+	public void delete(Long id);
 	
 }

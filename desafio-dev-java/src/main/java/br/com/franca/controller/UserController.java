@@ -5,6 +5,7 @@ import java.net.URI;
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,19 +35,24 @@ public class UserController {
 		return ResponseEntity.ok(dto);
 	}
 
-
 	@PostMapping
-	public ResponseEntity<UserResponseDTO> save(@RequestBody @Valid UserDTO dto) {		
+	public ResponseEntity<?> save(@RequestBody @Valid UserDTO dto) {		
 		Long id = service.save(dto);
 		URI uri = obterUri(id);
 		return ResponseEntity.created(uri).build();
 	}
 	
 	@PutMapping("/{id}")	
-	public ResponseEntity<UserResponseDTO> update(@PathVariable Long id, @RequestBody @Valid UserDTO dto) {
+	public ResponseEntity<?> update(@PathVariable Long id, @RequestBody @Valid UserDTO dto) {
 		service.update(id, dto);
 		return ResponseEntity.noContent().build();
-	}	
+	}
+	
+	@DeleteMapping("/{id}")	
+	public ResponseEntity<?> delete(@PathVariable Long id) {
+		service.delete(id);
+		return ResponseEntity.noContent().build();
+	}
 	
 
 	private URI obterUri(Long id) {
