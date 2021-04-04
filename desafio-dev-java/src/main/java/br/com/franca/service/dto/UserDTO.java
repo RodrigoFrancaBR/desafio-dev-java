@@ -18,28 +18,28 @@ public class UserDTO {
 	@NotNull
 	@NotEmpty
 	@Length( max = 50)	
-	private String name;
+	protected String name;
 	
-	private Genre genre;
+	protected Genre genre;
 
 	@Length(max = 50)
 	@Email
-	private String email;
+	protected String email;
 
 	@NotNull
 	@PastOrPresent
-	private LocalDate birthDate;
+	protected LocalDate birthDate;
 
 	@Length(max = 30)
-	private String naturalness;
+	protected String naturalness;
 	
 	@Length(max = 20)
-	private String nationality;
+	protected String nationality;
 	
 	@NotNull
 	@NotEmpty
 	@Length(min =11, max = 11)
-	private String cpf;
+	protected String cpf;
 
 	public String getName() {
 		return name;
@@ -67,7 +67,7 @@ public class UserDTO {
 
 	public String getCpf() {
 		return cpf;
-	}
+	}		
 
 	public User toUser() {
 		

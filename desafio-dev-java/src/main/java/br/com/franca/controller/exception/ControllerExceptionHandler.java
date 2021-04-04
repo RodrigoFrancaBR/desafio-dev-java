@@ -19,6 +19,7 @@ import br.com.franca.controller.exception.dto.FormErrorDTO;
 import br.com.franca.controller.exception.dto.StandartErrorDTO;
 import br.com.franca.controller.exception.dto.StandartErrorDTO.StandartErrorBuilder;
 import br.com.franca.service.exception.ResourceAlreadyExistsException;
+import br.com.franca.service.exception.ResourceNotFoundException;
 
 @RestControllerAdvice
 public class ControllerExceptionHandler {
@@ -79,6 +80,36 @@ public class ControllerExceptionHandler {
 		return standartErrorDTO;
 	}
 	
+	@ExceptionHandler(ResourceNotFoundException.class)
+	@ResponseStatus(code = HttpStatus.NOT_FOUND)
+	public StandartErrorDTO handlerResourceNotFoundException(ResourceNotFoundException e, HttpServletRequest request) {
+		
+		StandartErrorDTO standartErrorDTO = new StandartErrorDTO.StandartErrorBuilder()
+		.message(e.getMessage())
+		.error("Integridade de dados")
+		.path(request.getRequestURI())
+		.status(HttpStatus.NOT_FOUND.value())
+		.timestamp(System.currentTimeMillis())
+		.buildStandartErrorDTO();
+		
+		return standartErrorDTO;
+	}
+	
+	@ExceptionHandler(ResourceAlreadyExistsException.class)
+	@ResponseStatus(code = HttpStatus.CONFLICT)
+	public StandartErrorDTO handlerResourceAlreadyExists(ResourceAlreadyExistsException e, HttpServletRequest request) {
+		
+		StandartErrorDTO standartErrorDTO = new StandartErrorDTO.StandartErrorBuilder()
+		.message(e.getMessage())
+		.error("Regra de Negócio")
+		.path(request.getRequestURI())
+		.status(HttpStatus.CONFLICT.value())
+		.timestamp(System.currentTimeMillis())
+		.buildStandartErrorDTO();
+		
+		return standartErrorDTO;
+	}
+	
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	public StandartErrorDTO handlerDataIntegrityViolation(DataIntegrityViolationException e, HttpServletRequest request) {
@@ -92,23 +123,6 @@ public class ControllerExceptionHandler {
 		.buildStandartErrorDTO();
 		
 		return standartErrorDTO;
-	}
-	
-	@ExceptionHandler(ResourceAlreadyExistsException.class)
-	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
-	public StandartErrorDTO handlerResourceAlreadyExists(ResourceAlreadyExistsException e, HttpServletRequest request) {
-		
-		StandartErrorDTO standartErrorDTO = new StandartErrorDTO.StandartErrorBuilder()
-		.message(e.getMessage())
-		.error("Regra de Negócio")
-		.path(request.getRequestURI())
-		.status(HttpStatus.BAD_REQUEST.value())
-		.timestamp(System.currentTimeMillis())
-		.buildStandartErrorDTO();
-		
-		return standartErrorDTO;
-	}
-	
-	
+	}	
 
 }

@@ -43,9 +43,6 @@ public class User {
 	@Column(nullable = false, length = 11)
 	private String cpf;
 	
-	public User() {	
-	}
-
 	private User(String name, Genre genre, String email, LocalDate birthDate,
 			String naturalness, String nationality,String cpf) {
 		this.name = name;
@@ -57,12 +54,39 @@ public class User {
 		this.cpf = cpf;
 	}
 	
+	public User() {	
+	}
+	
 	public Long getId() {
 		return id;
 	}		
 	
 	public String getCpf() {
 		return cpf;
+	}		
+
+	public String getName() {
+		return name;
+	}
+
+	public Genre getGenre() {
+		return genre;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public LocalDate getBirthDate() {
+		return birthDate;
+	}
+
+	public String getNaturalness() {
+		return naturalness;
+	}
+
+	public String getNationality() {
+		return nationality;
 	}
 
 	@Override
