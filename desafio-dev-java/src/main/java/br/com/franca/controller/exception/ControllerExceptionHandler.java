@@ -86,7 +86,7 @@ public class ControllerExceptionHandler {
 		
 		StandartErrorDTO standartErrorDTO = new StandartErrorDTO.StandartErrorBuilder()
 		.message(e.getMessage())
-		.error("Integridade de dados")
+		.error("Recurso não encontrado")
 		.path(request.getRequestURI())
 		.status(HttpStatus.NOT_FOUND.value())
 		.timestamp(System.currentTimeMillis())

@@ -9,6 +9,7 @@ import br.com.franca.service.dto.out.UserResponseDTO;
 import br.com.franca.service.exception.ResourceAlreadyExistsException;
 import br.com.franca.service.exception.ResourceNotFoundException;
 import br.com.franca.service.interfaces.UserService;
+import br.com.franca.service.util.CpfUtil;
 
 @Service
 public class UserServiceIMP implements UserService {
@@ -41,37 +42,35 @@ public class UserServiceIMP implements UserService {
 	@Override
 	public Long save(UserDTO dto) {
 		
-		if (!isCpf(dto.getCpf())) {
+		if (!CpfUtil.isValid(dto.getCpf())) {
 			throw new IllegalArgumentException("CPF deve conter 11 dígitos entre [0 e 9]");
-		}	
-
-		if (repository.findByCpf(dto.getCpf()).isPresent()) {
-			throw new ResourceAlreadyExistsException("Já existe um Usuário com o cpf informado");
 		}
- 
+				
+		repository.findByCpf(dto.getCpf()).ifPresent(user ->{
+			throw new ResourceAlreadyExistsException("Já existe um Usuário com o cpf informado");
+		});
+		
 		User user = dto.toUser();
 
 		return repository.save(user).getId();
 	}
-
-	private boolean isCpf(String cpf) {
-
-		if (cpf.contains("-") || cpf.contains(".")) {
-			return false;
+	
+	@Override
+	public void update(Long id, UserDTO dto) {
+		
+		if (!CpfUtil.isValid(dto.getCpf())) {
+			throw new IllegalArgumentException("CPF deve conter 11 dígitos entre [0 e 9]");
 		}
-
-		if (cpf.length() != 11) {
-			return false;
-		}
-
-		try {
-			Long cpfNumber = Long.valueOf(cpf);
-		} catch (NumberFormatException e) {
-			System.out.println("CPF:" + cpf + " não é válido");
-			return false;
-		}
-
-		return true;
+		
+		User userFind = repository.findById(id)
+		.map(u->{
+			User user = dto.toUser();
+			user.setId(u.getId());
+			return user;
+		}).orElseThrow(()-> new ResourceNotFoundException("Usuário não encontrado"));
+		
+		repository.save(userFind);
+		
 	}
 
 }
