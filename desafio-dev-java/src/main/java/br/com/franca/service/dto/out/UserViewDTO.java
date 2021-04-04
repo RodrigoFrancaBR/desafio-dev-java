@@ -2,30 +2,61 @@ package br.com.franca.service.dto.out;
 
 import java.time.LocalDate;
 
-import javax.validation.constraints.NotNull;
-
 import br.com.franca.domain.Genre;
-import br.com.franca.service.dto.in.UserFrontDTO;
 
-public class UserViewDTO extends UserFrontDTO {
-
-	@NotNull
-	private Long id;	
-
-	private UserViewDTO(Long id, String name, Genre genre, String email,
-			LocalDate birthDate, String naturalness, String nationality, String cpf) {
-				this.id = id;
-				this.name = name;
-				this.genre = genre;
-				this.email = email;
-				this.birthDate = birthDate;
-				this.naturalness = naturalness;
-				this.nationality = nationality;
-				this.cpf = cpf;
-	}
+public class UserViewDTO {
+	
+	private Long id;
+	private String name;
+	private Genre genre;
+	private String email;
+	private LocalDate birthDate;
+	private String naturalness;
+	private String nationality;
+	private String cpf;		
 
 	public Long getId() {
 		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public Genre getGenre() {
+		return genre;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public LocalDate getBirthDate() {
+		return birthDate;
+	}
+
+	public String getNaturalness() {
+		return naturalness;
+	}
+
+	public String getNationality() {
+		return nationality;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	private UserViewDTO(Long id, String name, Genre genre, String email, LocalDate birthDate, String naturalness,
+			String nationality, String cpf) {		
+		this.id = id;
+		this.name = name;
+		this.genre = genre;
+		this.email = email;
+		this.birthDate = birthDate;
+		this.naturalness = naturalness;
+		this.nationality = nationality;
+		this.cpf = cpf;
 	}
 
 	public static class UserViewDTOBuilder {

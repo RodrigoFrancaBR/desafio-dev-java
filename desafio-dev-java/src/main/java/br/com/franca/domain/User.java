@@ -43,8 +43,12 @@ public class User {
 	@Column(nullable = false, length = 11)
 	private String cpf;
 	
-	private User(String name, Genre genre, String email, LocalDate birthDate,
-			String naturalness, String nationality,String cpf) {
+
+	
+	private User(Long id, String name, Genre genre, String email, LocalDate birthDate, String naturalness,
+			String nationality, String cpf) {
+		super();
+		this.id = id;
 		this.name = name;
 		this.genre = genre;
 		this.email = email;
@@ -53,7 +57,7 @@ public class User {
 		this.nationality = nationality;
 		this.cpf = cpf;
 	}
-	
+
 	public User() {	
 	}
 	
@@ -119,6 +123,7 @@ public class User {
 	}
 
 	public static class UserBuilder {
+		private Long id;
 		private String name;
 		private Genre genre;
 		private String email;
@@ -126,7 +131,12 @@ public class User {
 		private String naturalness;
 		private String nationality;
 		private String cpf;
-
+		
+		public UserBuilder id(Long id) {
+			this.id = id;
+			return this;
+		}
+		
 		public UserBuilder(String name, LocalDate birthDate, String cpf) {
 			this.name = name;
 			this.birthDate = birthDate;
@@ -156,8 +166,8 @@ public class User {
 		}
 				
 		public User buildUser() {
-			return new User(this.name, this.genre, this.email, this.birthDate,
-					this.naturalness, this.nationality,this.cpf);
+			return new User(this.id, this.name, this.genre, this.email,
+					this.birthDate, this.naturalness, this.nationality, this.cpf);
 		}
 		
 	}
