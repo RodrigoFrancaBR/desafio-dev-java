@@ -3,6 +3,7 @@ package br.com.franca.controller;
 import java.net.URI;
 import java.util.List;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,14 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.franca.service.dto.in.UserFrontDTO;
 import br.com.franca.service.dto.out.UserViewDTO;
 import br.com.franca.service.interfaces.UserService;
-
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+/**
+ * 
+ * @author Rodrigo França
+ * Ponto de entrada dos seriços rest
+ */
+@Api
 @RestController
 @RequestMapping(path = "/api/users")
 public class UserController {
@@ -29,33 +37,41 @@ public class UserController {
 	public UserController(UserService service) {
 		this.service = service;
 	}
-	
-	@GetMapping
+
+	@ApiOperation("Listar todos os cadastrados")
+	@GetMapping	
 	public ResponseEntity<List<UserViewDTO>> findAll() {
 		List<UserViewDTO> listDTO = service.findAll();
 		return ResponseEntity.ok(listDTO);
 	}
-	
+
+	@ApiOperation("Listar apenas um cadastro")
 	@GetMapping("/{id}")
 	public ResponseEntity<UserViewDTO> findBy(@PathVariable Long id) {
 		UserViewDTO dto = service.findById(id);
 		return ResponseEntity.ok(dto);
 	}
 
+	@ApiOperation("Cadastrar usuário")
 	@PostMapping
+	@Transactional
 	public ResponseEntity<?> save(@RequestBody @Valid UserFrontDTO dto) {		
 		Long id = service.save(dto);
 		URI uri = obterUri(id);
 		return ResponseEntity.created(uri).build();
 	}
-	
-	@PutMapping("/{id}")	
+
+	@ApiOperation("Editar usuário")
+	@PutMapping("/{id}")
+	@Transactional
 	public ResponseEntity<?> update(@PathVariable Long id, @RequestBody @Valid UserFrontDTO dto) {
 		service.update(id, dto);
 		return ResponseEntity.noContent().build();
 	}
-	
-	@DeleteMapping("/{id}")	
+
+	@ApiOperation("Deletar usuário")
+	@DeleteMapping("/{id}")
+	@Transactional
 	public ResponseEntity<?> delete(@PathVariable Long id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();

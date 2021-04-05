@@ -4,7 +4,12 @@ import java.util.List;
 
 import br.com.franca.service.dto.in.UserFrontDTO;
 import br.com.franca.service.dto.out.UserViewDTO;
-
+/**
+ * 
+ * @author Rodrigo França
+ * Interface que disponibiliza serviços do usuário
+ *
+ */
 public interface UserService {
 
 	public Long save(UserFrontDTO dto);

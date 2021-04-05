@@ -16,7 +16,11 @@ import br.com.franca.service.exception.ResourceAlreadyExistsException;
 import br.com.franca.service.exception.ResourceNotFoundException;
 import br.com.franca.service.interfaces.UserService;
 import br.com.franca.service.util.CpfUtil;
-
+/**
+ * 
+ * @author Rodrigo França
+ * Classe que implementa as regras de negócio
+ */
 @Service
 public class UserServiceIMP implements UserService {
 
@@ -34,15 +38,16 @@ public class UserServiceIMP implements UserService {
 	public List<UserViewDTO> findAll() {
 		return repository.findAll().stream().map(viewMapper::map).collect(Collectors.toList());
 	}
-
+	
 	@Override
+	
 	public UserViewDTO findById(Long id) {
 		
 		return repository.findById(id).map(viewMapper::map)
 				.orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
 	}
-
-	@Override
+	
+	@Override	
 	public Long save(UserFrontDTO dto) {
 		
 		validateCpf(dto.getCpf());		
