@@ -71,43 +71,38 @@ public class User implements UserDetails{
 		this.nationality = nationality;
 		this.cpf = cpf;
 	}
-
+	
+	@Override
+	public String getUsername() {
+		return this.userName;
+	}
+	
+	@Override
+	public boolean isAccountNonExpired() {	
+		return true;
+	}
+	
+	@Override
+	public boolean isAccountNonLocked() {	
+		return true;
+	}
+	
+	@Override
+	public boolean isCredentialsNonExpired() {	
+		return true;
+	}
+	
+	@Override
+	public boolean isEnabled() {	
+		return true;
+	}
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return this.profiles;
 	}
 
-	@Override
-	public String getPassword() {		
-		return this.password;
-	}
-
-	@Override
-	public String getUsername() {
-		return userName;
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
-
-	public User() {	
+	public User() {
 	}
 	
 	public Long getId() {
@@ -144,8 +139,16 @@ public class User implements UserDetails{
 
 	public String getNationality() {
 		return nationality;
-	}
+	}	
 
+	public String getUserName() {
+		return userName;
+	}	
+	
+	public String getPassword() {
+		return password;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -37,4 +37,5 @@ public class Profiles implements GrantedAuthority {
 	public String getAuthority() {
 		return this.name;
 	}
+	
 }

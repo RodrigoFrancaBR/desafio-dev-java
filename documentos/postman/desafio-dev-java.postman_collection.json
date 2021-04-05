@@ -17,6 +17,11 @@
 						"key": "Content-Type",
 						"value": "application/json",
 						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBUEkgZG8gZm9ydW0gZGEgQUxVUkEiLCJzdWIiOiIxIiwiaWF0IjoxNjE3NTk4ODc1LCJleHAiOjE2MTc2ODUyNzV9.M9MYyoc4O2QDkJePxH_e-63_zD5uKtb9fehEQeQgSik",
+						"description": ""
 					}
 				],
 				"body": {
@@ -30,7 +35,7 @@
 		{
 			"name": "Listar apenas um cadastro",
 			"request": {
-				"url": "http://localhost:8080/api/users/5",
+				"url": "http://localhost:8080/api/users/1",
 				"method": "GET",
 				"header": [
 					{
@@ -50,18 +55,23 @@
 		{
 			"name": "Editar usuário",
 			"request": {
-				"url": "http://localhost:8080/api/users/3",
+				"url": "http://localhost:8080/api/users/4",
 				"method": "PUT",
 				"header": [
 					{
 						"key": "Content-Type",
 						"value": "application/json",
 						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBUEkgZG8gZm9ydW0gZGEgQUxVUkEiLCJzdWIiOiIxIiwiaWF0IjoxNjE3NTk4ODc1LCJleHAiOjE2MTc2ODUyNzV9.M9MYyoc4O2QDkJePxH_e-63_zD5uKtb9fehEQeQgSik",
+						"description": ""
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\":\"Rodrigo França\",\n\t\"genre\":\"MASCULINO\",\n\t\"email\":\"rfrancacosta@gmail\",\n\t\"birthDate\":\"1985-09-04\",\n\t\"naturalness\": \"Rio de Janeiro\",\n\t\"nationality\":\"Brasileira\",\n\t\"cpf\":\"12345678912\"\t\n}"
+					"raw": "{\n\t\"name\":\"Rodrigo França\",\n\t\"genre\":\"FEMININO\",\n\t\"email\":\"rfrancacosta@gmail\",\n\t\"birthDate\":\"1985-09-04\",\n\t\"naturalness\": \"Rio de Janeiro\",\n\t\"nationality\":\"Brasileira\",\n\t\"cpf\":\"12345678912\"\t\n}"
 				},
 				"description": ""
 			},
@@ -70,12 +80,17 @@
 		{
 			"name": "Deletar usuário",
 			"request": {
-				"url": "http://localhost:8080/api/users/5",
+				"url": "http://localhost:8080/api/users/1",
 				"method": "DELETE",
 				"header": [
 					{
 						"key": "Content-Type",
 						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBUEkgZG8gZm9ydW0gZGEgQUxVUkEiLCJzdWIiOiIxIiwiaWF0IjoxNjE3NTk4ODc1LCJleHAiOjE2MTc2ODUyNzV9.M9MYyoc4O2QDkJePxH_e-63_zD5uKtb9fehEQeQgSik",
 						"description": ""
 					}
 				],
@@ -102,6 +117,26 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\n\t\"name\":\"Rodrigo França\",\n\t\"genre\":\"MASCULINO\",\n\t\"email\":\"rfrancacosta@gmail\",\n\t\"birthDate\":\"1985-09-04\",\n\t\"naturalness\": \"Rio de Janeiro\",\n\t\"nationality\":\"Brasileira\",\n\t\"cpf\":\"12345678912\"\t\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "auth",
+			"request": {
+				"url": "http://localhost:8080/auth",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userName\":\"isac\",\n\t\"password\":\"123456\"\n}"
 				},
 				"description": ""
 			},
