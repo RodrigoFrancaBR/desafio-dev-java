@@ -7,12 +7,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 
 @EnableWebSecurity
 @Configuration
 public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
-
+	
 	@Override
 	@Bean
 	protected AuthenticationManager authenticationManager() throws Exception {
@@ -23,7 +22,8 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/users").permitAll();
 		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/users/*").permitAll()
-		.anyRequest().authenticated().and().csrf().disable().sessionManagement()
-		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		.anyRequest().authenticated()
+		.and()
+		.formLogin();
 	}
 }
